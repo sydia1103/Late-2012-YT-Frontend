@@ -38,7 +38,7 @@ function ISO8601ToSeconds($ISO8601){
 		($interval->i * 60) +
 		$interval->s;
 }
-
+//gets recommendations for end screen.
 function getEndScreenRecommendations() {
 global $id, $api_key;
 $videoList = json_decode(file_get_contents('https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId='.$id.'&maxResults=12&type=video&key='.$api_key));
