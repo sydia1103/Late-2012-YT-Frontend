@@ -13,4 +13,4 @@ You'll need a YouTube Data API v3 key from Google. https://developers.google.com
 It's free, but has limited quota. \
 Host this on any site, works anywhere. Does not require any DB setup. \
 Once you've gotten the key, go to the /static/ folder and edit the config file to use your API key. \
-If you did it right, it should work. Enjoy. \
+If you did it right, it should work. Enjoy.
