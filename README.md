@@ -1,5 +1,5 @@
 # Late-2012-YT-Frontend
-A frontend for modern day YT. Requires an API Key from Google, uses YouTube Data API v3.
+A frontend for modern day YT. Runs on Invidious.
 Feel free to improve this however you'd like, you can use it for a 2012L YouTube revival given the right PHP knowledge.
 
 # Features
@@ -9,8 +9,7 @@ Feel free to improve this however you'd like, you can use it for a 2012L YouTube
 - Gets comments.
 
 # How to install
-You'll need a YouTube Data API v3 key from Google. https://developers.google.com/youtube/v3 \
-It's free, but has limited quota. \
 Host this on any site, works anywhere. Does not require any DB setup. \
+Make sure you copy html5_player_template_2012L in the root. \
 Once you've gotten the key, go to the /static/ folder and edit the config file to use your API key. \
 If you did it right, it should work. Enjoy.

@@ -9,7 +9,7 @@
 
       <div class="html5-video-fallback html5-stop-propagation" style="display: none;">
     <div class="html5-video-fallback-content">
-      This video is currently unavailable.
+      There are no accessible streams for this video.
     </div>
   </div>
 

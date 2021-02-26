@@ -128,31 +128,27 @@ include("./static/guide.php");
 
 
 <?php
-if(isset($_GET["page_token"])) {
-$videoList = json_decode(file_get_contents('https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=15&pageToken='.urlencode($_GET["page_token"]).'&order=relevance&q='.urlencode($_GET["search_query"]).'&key='.$api_key));
+if(isset($_GET["page"])) {
+$page = $_GET["page"];
+$videoList = json_decode(file_get_contents('https://invidious.zee.li/api/v1/search?q='.urlencode($_GET["search_query"]).'&page='.$_GET["page"]));
 } else {
-$videoList = json_decode(file_get_contents('https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=15&order=relevance&q='.urlencode($_GET["search_query"]).'&key='.$api_key));
+$page = 1;
+$videoList = json_decode(file_get_contents('https://invidious.zee.li/api/v1/search?q='.urlencode($_GET["search_query"]).'&page=1'));
 } 
-		 
-foreach($videoList->items as $item){
-if(isset($item->id->videoId)){
-if(isset($item->snippet->title)) {
+foreach($videoList as $videoList){
 echo "<li class='yt-lockup2 yt-lockup2-video yt-uix-tile context-data-item clearfix '>
-   <div class='yt-lockup2-thumbnail'><a href='watch?v=".$item->id->videoId."' class='ux-thumb-wrap yt-uix-sessionlink yt-uix-contextlink contains-addto ' data-sessionlink='ei=CNGX56CUibUCFQo8RAodEEKIqg%3D%3D&amp;ved=CAMQwBs%3D'><span class='video-thumb ux-thumb yt-thumb-default-185 '><span class='yt-thumb-clip'><span class='yt-thumb-clip-inner'><img alt='Thumbnail' src='".$item->snippet->thumbnails->default->url."' width='185'><span class='vertical-align'></span></span></span></span>
+   <div class='yt-lockup2-thumbnail'><a href='watch?v=".$videoList->videoId."' class='ux-thumb-wrap yt-uix-sessionlink yt-uix-contextlink contains-addto ' data-sessionlink='ei=CNGX56CUibUCFQo8RAodEEKIqg%3D%3D&amp;ved=CAMQwBs%3D'><span class='video-thumb ux-thumb yt-thumb-default-185 '><span class='yt-thumb-clip'><span class='yt-thumb-clip-inner'><img alt='Thumbnail' src='".$videoList->videoThumbnails[2]->url."' width='185'><span class='vertical-align'></span></span></span></span>
       </a>
    </div>
    <div class='yt-lockup2-content'>
-      <h3 class='yt-lockup2-title'><a class='yt-uix-sessionlink yt-uix-tile-link yt-uix-contextlink ' dir='ltr' data-sessionlink='ei=CNGX56CUibUCFQo8RAodEEKIqg%3D%3D&amp;ved=CAIQvxs%3D' href='watch?v=".$item->id->videoId."'>".htmlspecialchars($item->snippet->title)."</a></h3>
-      <p class='yt-lockup2-meta'>  by <a href='profile?id=".$item->snippet->channelId."' class='yt-uix-sessionlink yt-user-name ' data-sessionlink='ei=CNGX56CUibUCFQo8RAodEEKIqg%3D%3D&amp;ved=CAQQwRs%3D' dir='ltr'>".$item->snippet->channelTitle."</a><span class='metadata-separator'>•</span>".$item->snippet->publishedAt."<span class='metadata-separator'>•</span></p>
-      <p class='yt-lockup2-description' dir='ltr'>".mb_strimwidth(htmlspecialchars($item->snippet->description), 0, 50, "...")."</p>
+      <h3 class='yt-lockup2-title'><a class='yt-uix-sessionlink yt-uix-tile-link yt-uix-contextlink ' dir='ltr' data-sessionlink='ei=CNGX56CUibUCFQo8RAodEEKIqg%3D%3D&amp;ved=CAIQvxs%3D' href='watch?v=".$videoList->videoId."'>".htmlspecialchars($videoList->title)."</a></h3>
+      <p class='yt-lockup2-meta'>  by <a href='profile?id=".$videoList->authorId."' class='yt-uix-sessionlink yt-user-name ' data-sessionlink='ei=CNGX56CUibUCFQo8RAodEEKIqg%3D%3D&amp;ved=CAQQwRs%3D' dir='ltr'>".$videoList->author."</a><span class='metadata-separator'>•</span>".$videoList->publishedText."<span class='metadata-separator'>•</span></p>
+      <p class='yt-lockup2-description' dir='ltr'>".mb_strimwidth(htmlspecialchars($videoList->description), 0, 50, "...")."</p>
       <div class='yt-lockup2-badges'>
          <ul class='item-badge-line'></ul>
       </div>
    </div>
 </li>";
-$pageToken = $videoList->nextPageToken;
-}
-}
 }
 ?>
 
@@ -232,6 +228,6 @@ $pageToken = $videoList->nextPageToken;
 
 
 <div class="yt-uix-pager" role="navigation">   
-<a href="results?search_query=<?php echo urlencode($_GET["search_query"]); ?>&page_token=<?php echo $pageToken; ?>" class="yt-uix-button  yt-uix-pager-button yt-uix-sessionlink yt-uix-button-default" data-sessionlink="ei=CLHplbT-ibUCFcdRRAod3XcHTw%3D%3D" data-page="2"><span class="yt-uix-button-content">Next »</span></a>
+<a href="results?search_query=<?php echo urlencode($_GET["search_query"]); ?>&page=<?php echo $page + 1; ?>" class="yt-uix-button  yt-uix-pager-button yt-uix-sessionlink yt-uix-button-default" data-sessionlink="ei=CLHplbT-ibUCFcdRRAod3XcHTw%3D%3D" data-page="2"><span class="yt-uix-button-content">Next »</span></a>
     </div>
 </div>

@@ -1,18 +1,8 @@
 <?php
 include("config.php");
 include("functions.php");
-if(file_get_contents('https://youtube.googleapis.com/youtube/v3/search?part=snippet&type=channel&maxResults=5&chart=mostPopular&key='.$api_key) == null) {
-	echo "This site has exceeded its daily quota. Come back later.";
-	die();
-}
-function getProfPic($user) {
-global $api_key;
-$infoList = json_decode(file_get_contents('https://www.googleapis.com/youtube/v3/channels?part=snippet&fields=items%2Fsnippet%2Fthumbnails%2Fdefault&id='.$user.'&key='.$api_key));
-		  
-foreach($infoList->items as $info){
-	return $info->snippet->thumbnails->default->url;
-}
-}
+$arr = explode("?", basename($_SERVER["REQUEST_URI"]), 2);
+$currentphp = $arr[0];
 ?>
 <html lang="en">
    <head>
@@ -36,4 +26,9 @@ foreach($infoList->items as $info){
          </div>
       </div>
       <div id="page-container">
-      <div id="page" class="  home     branded-page-v2-detached-top ">
+      <div id="page" class="<?php 
+	  if($currentphp == 'profile') {
+		  echo "page-default   branded-page channel ";
+	  } else {
+		  echo "home     branded-page-v2-detached-top ";
+	  }?>">

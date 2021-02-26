@@ -97,6 +97,18 @@ No channels found
                 <hr class="guide-section-separator">
             </div>
           </li>
+		  
+		  <li id="guide-subscription-suggestions-section" class="guide-section guide-section-no-counts">
+                <a href="/web/20121230023058/http://www.youtube.com/channels?feature=guide" class="guide-management-section guide-management-plus-only guide-item ">
+    <span class="thumb guide-management-plus-icon">
+      <img src="//web.archive.org/web/20121230023058im_/http://s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif" alt="">
+    </span>
+    <span class="guide-management-caption">
+Browse channels
+    </span>
+  </a>
+
+            </li>
         </ul>
             <div class="guide-section guide-header signup-promo guided-help-box">
     <p>

@@ -3,6 +3,7 @@ include("./static/header.php");
 include("./static/guide.php");
 // everything here is just calling for most popular videos on youtube and echoing it with the original html.
 // i recommend you don't bother much with this.
+$count = 0;
 ?>
 <div id="content">
 
@@ -33,79 +34,81 @@ include("./static/guide.php");
     
     <div class="lohp-large-shelf-container">
         <?php
-$videoList = json_decode(file_get_contents('https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&maxResults=1&chart=mostPopular&regionCode=US&key='.$api_key));
+$videoList = json_decode(file_get_contents('https://invidious.zee.li/api/v1/trending?type=movies&region=US'));
 		  
-foreach($videoList->items as $item){
+foreach($videoList as $videoList){
 //Embed video
-if(isset($item->id)){
-if(isset($item->snippet->title)) {
+if(isset($videoList->videoId)){
+if($count < 1) {
 			echo "<div class='context-data-item'>
     
-    <a href='watch?v=".$item->id."' class='ux-thumb-wrap yt-uix-sessionlink yt-uix-contextlink contains-addto ' data-sessionlink='ei=CPyeyIWLwbQCFZkQIQodPx8kow%3D%3D&amp;feature=g-logo&amp;ved=CAMQ0h4oAA%3D%3D'><span class='video-thumb ux-thumb yt-thumb-default-370 '><span class='yt-thumb-clip'><span class='yt-thumb-clip-inner'><img alt='Thumbnail' src='".$item->snippet->thumbnails->high->url."' onerror=\"this.src='./img/default.png'\" width='370'><span class='vertical-align'></span></span></span></span></a>
-      <a class='lohp-video-link max-line-2 yt-uix-sessionlink' data-sessionlink='ei=CPyeyIWLwbQCFZkQIQodPx8kow%3D%3D&amp;feature=g-logo&amp;ved=CAMQ0h4oAA%3D%3D' href='watch?v=".$item->id."' title='".$item->snippet->title."'>".$item->snippet->title."</a>
+    <a href='watch?v=".$videoList->videoId."' class='ux-thumb-wrap yt-uix-sessionlink yt-uix-contextlink contains-addto ' data-sessionlink='ei=CPyeyIWLwbQCFZkQIQodPx8kow%3D%3D&amp;feature=g-logo&amp;ved=CAMQ0h4oAA%3D%3D'><span class='video-thumb ux-thumb yt-thumb-default-370 '><span class='yt-thumb-clip'><span class='yt-thumb-clip-inner'><img alt='Thumbnail' src='https://i.ytimg.com/vi/".$videoList->videoId."/hq720.jpg' onerror=\"this.src='./img/default.png'\" width='370'><span class='vertical-align'></span></span></span></span></a>
+      <a class='lohp-video-link max-line-2 yt-uix-sessionlink' data-sessionlink='ei=CPyeyIWLwbQCFZkQIQodPx8kow%3D%3D&amp;feature=g-logo&amp;ved=CAMQ0h4oAA%3D%3D' href='watch?v=".$videoList->videoId."' title='".$videoList->title."'>".$videoList->title."</a>
 
 
       <div class='lohp-video-metadata'>
           <span class='content-uploader'>
-<span class='username-prepend'>by</span> <a href='profile?id=".$item->snippet->channelId."' class='yt-uix-sessionlink yt-user-name ' data-sessionlink='ei=CPyeyIWLwbQCFZkQIQodPx8kow%3D%3D' dir='ltr'>".$item->snippet->channelTitle."</a>
+<span class='username-prepend'>by</span> <a href='profile?id=".$videoList->authorId."' class='yt-uix-sessionlink yt-user-name ' data-sessionlink='ei=CPyeyIWLwbQCFZkQIQodPx8kow%3D%3D' dir='ltr'>".$videoList->author."</a>
   </span>
 
           <span class='view-count'>
-    ".number_format($item->statistics->viewCount)." views
+    ".number_format($videoList->viewCount)." views
   </span>
 
           <span class='content-item-time-created'>
-    ".$item->snippet->publishedAt."
+    ".$videoList->publishedText."
   </span>
 
       </div>
   </div>
 ";
-$nextPage = $videoList->nextPageToken;
-		}
+$count++;
 }
 }
+}
+$count = 0; //reset count, invidious does not seem to have limit filter
 		?>
     </div>
     <div class="lohp-medium-shelves-container">
 <?php
-$videoList = json_decode(file_get_contents('https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&maxResults=3&pageToken='.$nextPage.'&chart=mostPopular&regionCode=US&key='.$api_key));
+$videoList = json_decode(file_get_contents('https://invidious.zee.li/api/v1/trending?type=news&region=US'));
 		  
-foreach($videoList->items as $item){
+foreach($videoList as $videoList){
 //Embed video
-if(isset($item->id)){
-if(isset($item->snippet->title)) {
+if(isset($videoList->videoId)){
+if($count < 3) {
 			echo "<div class='lohp-medium-shelf context-data-item'>
     
     <div class='lohp-media-object'>
-      <a href='watch?v=".$item->id."' class='ux-thumb-wrap yt-uix-sessionlink yt-uix-contextlink contains-addto ' data-sessionlink='ei=CPyeyIWLwbQCFZkQIQodPx8kow%3D%3D&amp;feature=g-logo&amp;ved=CAYQ0h4oAw%3D%3D'><span class='video-thumb ux-thumb yt-thumb-default-128 '><span class='yt-thumb-clip'><span class='yt-thumb-clip-inner'><img alt='Thumbnail' src='".$item->snippet->thumbnails->default->url."' onerror=\"this.src='./img/default.png'\" width='128'><span class='vertical-align'></span></span></span></span>
+      <a href='watch?v=".$videoList->videoId."' class='ux-thumb-wrap yt-uix-sessionlink yt-uix-contextlink contains-addto ' data-sessionlink='ei=CPyeyIWLwbQCFZkQIQodPx8kow%3D%3D&amp;feature=g-logo&amp;ved=CAYQ0h4oAw%3D%3D'><span class='video-thumb ux-thumb yt-thumb-default-128 '><span class='yt-thumb-clip'><span class='yt-thumb-clip-inner'><img alt='Thumbnail' src='https://i.ytimg.com/vi/".$videoList->videoId."/default.jpg' onerror=\"this.src='./img/default.png'\" width='128'><span class='vertical-align'></span></span></span></span>
 </a>
     </div>
     <div class='lohp-media-object-content lohp-medium-shelf-content'>
-        <a class='lohp-video-link max-line-2 yt-uix-sessionlink' data-sessionlink='ei=CPyeyIWLwbQCFZkQIQodPx8kow%3D%3D&amp;feature=g-logo&amp;ved=CAYQ0h4oAw%3D%3D' href='watch?v=".$item->id."' title='".$item->snippet->title."'>".$item->snippet->title."</a>
+        <a class='lohp-video-link max-line-2 yt-uix-sessionlink' data-sessionlink='ei=CPyeyIWLwbQCFZkQIQodPx8kow%3D%3D&amp;feature=g-logo&amp;ved=CAYQ0h4oAw%3D%3D' href='watch?v=".$videoList->videoId."' title='".$videoList->title."'>".$videoList->title."</a>
 
       <div class='lohp-video-metadata attached'>
           <span class='content-uploader'>
-<span class='username-prepend'>by</span> <a href='profile?id=".$item->snippet->channelId."' class='yt-uix-sessionlink yt-user-name ' data-sessionlink='ei=CPyeyIWLwbQCFZkQIQodPx8kow%3D%3D' dir='ltr'>".$item->snippet->channelTitle."</a>
+<span class='username-prepend'>by</span> <a href='profile?id=".$videoList->authorId."' class='yt-uix-sessionlink yt-user-name ' data-sessionlink='ei=CPyeyIWLwbQCFZkQIQodPx8kow%3D%3D' dir='ltr'>".$videoList->author."</a>
   </span>
 
       </div>
         <div class='lohp-video-metadata'>
             <span class='view-count'>
-    ".number_format($item->statistics->viewCount)." views
+    ".number_format($videoList->viewCount)." views
   </span>
 
             <span class='content-item-time-created' title='2 days ago'>
-    ".$item->snippet->publishedAt."
+    ".$videoList->publishedText."
   </span>
 
         </div>
     </div>
   </div>";
-$nextPage = $videoList->nextPageToken;
-		}
+$count++;
 }
 }
+}
+$count = 0; //reset count, invidious does not seem to have limit filter
 		?>
             </div>
   </div>
@@ -116,36 +119,38 @@ $nextPage = $videoList->nextPageToken;
 
           <div>
           <?php
-		  $videoList = json_decode(file_get_contents('https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&maxResults=15&chart=mostPopular&pageToken='.$nextPage.'&regionCode=US&key='.$api_key));
+$videoList = json_decode(file_get_contents('https://invidious.fdn.fr/api/v1/popular'));
 		  
-foreach($videoList->items as $item){
+foreach($videoList as $videoList){
 //Embed video
-if(isset($item->id)){
-if(isset($item->snippet->title)) {
+if(isset($videoList->videoId)){
+if($count < 15) {
 	echo "<div class='lohp-shelf-cell-container lohp-category-shelf '>
    <div class='lohp-category-shelf-item-list lohp-shelf-size-1'>
       <h2 class='branded-page-module-title'>
-         <a class='spf-link' href='profile?id=".$item->snippet->channelId."' title='profile?id=".$item->snippet->channelId."' data-sessionlink='ei=CPyeyIWLwbQCFZkQIQodPx8kow%3D%3D&amp;ved=CBIQzh4%3D'>
-         ".$item->snippet->channelTitle."
+         <a class='spf-link' href='profile?id=".$videoList->authorId."' title='profile?id=".$videoList->authorId."' data-sessionlink='ei=CPyeyIWLwbQCFZkQIQodPx8kow%3D%3D&amp;ved=CBIQzh4%3D'>
+         ".$videoList->author."
          </a>
       </h2>
       <div class='lohp-category-shelf-item context-data-item first-shelf-item last-shelf-item'>
-         <a href='watch?v=".$item->id."' class='ux-thumb-wrap yt-uix-sessionlink yt-uix-contextlink contains-addto ' data-sessionlink='ei=CPyeyIWLwbQCFZkQIQodPx8kow%3D%3D&amp;feature=g-logo&amp;ved=CBMQzx4oAA%3D%3D'><span class='video-thumb ux-thumb yt-thumb-default-165 '><span class='yt-thumb-clip'><span class='yt-thumb-clip-inner'><img data-thumb='".$item->snippet->thumbnails->default->url."' onerror=\"this.src='./img/default.png'\" alt='Thumbnail' src='".$item->snippet->thumbnails->default->url."' onerror=\"this.src='./img/default.png'\" width='165' data-group-key='thumb-group-0'><span class='vertical-align'></span></span></span></span></a>
-         <a class='lohp-video-link max-line-2 yt-uix-sessionlink' data-sessionlink='ei=CPyeyIWLwbQCFZkQIQodPx8kow%3D%3D&amp;feature=g-logo&amp;ved=CBMQzx4oAA%3D%3D' href='watch?v=".$item->id."' title='".$item->snippet->title."'>".$item->snippet->title."</a>
+         <a href='watch?v=".$videoList->videoId."' class='ux-thumb-wrap yt-uix-sessionlink yt-uix-contextlink contains-addto ' data-sessionlink='ei=CPyeyIWLwbQCFZkQIQodPx8kow%3D%3D&amp;feature=g-logo&amp;ved=CBMQzx4oAA%3D%3D'><span class='video-thumb ux-thumb yt-thumb-default-165 '><span class='yt-thumb-clip'><span class='yt-thumb-clip-inner'><img data-thumb='https://i.ytimg.com/vi/".$videoList->videoId."/default.jpg' onerror=\"this.src='./img/default.png'\" alt='Thumbnail' src='https://i.ytimg.com/vi/".$videoList->videoId."/default.jpg' onerror=\"this.src='./img/default.png'\" width='165' data-group-key='thumb-group-0'><span class='vertical-align'></span></span></span></span></a>
+         <a class='lohp-video-link max-line-2 yt-uix-sessionlink' data-sessionlink='ei=CPyeyIWLwbQCFZkQIQodPx8kow%3D%3D&amp;feature=g-logo&amp;ved=CBMQzx4oAA%3D%3D' href='watch?v=".$videoList->videoId."' title='".$videoList->title."'>".$videoList->title."</a>
          <div class='lohp-video-metadata'>
             <span class='view-count'>
-            ".number_format($item->statistics->viewCount)." views
+            ".number_format($videoList->viewCount)." views
             </span>
             <span class='content-item-time-created'>
-            ".$item->snippet->publishedAt."
+            ".$videoList->publishedText."
             </span>
          </div>
       </div>
    </div>
 </div>";
+$count++;
 }
 }
 }
+$count = 0; //reset count, invidious does not seem to have limit filter
 		  ?>
   </div>
 
@@ -162,30 +167,32 @@ if(isset($item->snippet->title)) {
       </a>
     </h2>
 <?php
-$videoList = json_decode(file_get_contents('https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&videoCategoryId=10&maxResults=4&chart=mostPopular&regionCode=US&key='.$api_key));
+$videoList = json_decode(file_get_contents('https://invidious.zee.li/api/v1/trending?type=music&region=US'));
 		  
-foreach($videoList->items as $item){
+foreach($videoList as $videoList){
 //Embed video
-if(isset($item->id)){
-if(isset($item->snippet->title)) {
+if(isset($videoList->videoId)){
+if($count < 3) {
 			echo "<div class='lohp-vertical-shelf-item context-data-item'>
         <div class='lohp-media-object'>
-          <a href='watch?v=".$item->id."' class='ux-thumb-wrap yt-uix-sessionlink yt-uix-contextlink contains-addto ' data-sessionlink='ei=CPyeyIWLwbQCFZkQIQodPx8kow%3D%3D&amp;feature=g-logo&amp;ved=CFEQzx4oAA%3D%3D'><span class='video-thumb ux-thumb yt-thumb-default-64 '><span class='yt-thumb-clip'><span class='yt-thumb-clip-inner'><img alt='Thumbnail' src='".$item->snippet->thumbnails->default->url."' onerror=\"this.src='./img/default.png'\" width='64' data-group-key='thumb-group-1'><span class='vertical-align'></span></span></span></span></a>
+          <a href='watch?v=".$videoList->videoId."' class='ux-thumb-wrap yt-uix-sessionlink yt-uix-contextlink contains-addto ' data-sessionlink='ei=CPyeyIWLwbQCFZkQIQodPx8kow%3D%3D&amp;feature=g-logo&amp;ved=CFEQzx4oAA%3D%3D'><span class='video-thumb ux-thumb yt-thumb-default-64 '><span class='yt-thumb-clip'><span class='yt-thumb-clip-inner'><img alt='Thumbnail' src='https://i.ytimg.com/vi/".$videoList->videoId."/default.jpg' onerror=\"this.src='./img/default.png'\" width='64' data-group-key='thumb-group-1'><span class='vertical-align'></span></span></span></span></a>
         </div>
         <div class='lohp-vertical-shelf-item-content lohp-media-object-content'>
-            <a class='lohp-video-link max-line-3 yt-uix-sessionlink' data-sessionlink='ei=CPyeyIWLwbQCFZkQIQodPx8kow%3D%3D&amp;feature=g-logo&amp;ved=CFEQzx4oAA%3D%3D' href='watch?v=".$item->id."' title='".$item->snippet->title."'>".$item->snippet->title."</a>
+            <a class='lohp-video-link max-line-3 yt-uix-sessionlink' data-sessionlink='ei=CPyeyIWLwbQCFZkQIQodPx8kow%3D%3D&amp;feature=g-logo&amp;ved=CFEQzx4oAA%3D%3D' href='watch?v=".$videoList->videoId."' title='".$videoList->title."'>".$videoList->title."</a>
 
           <div class='lohp-video-metadata attached'>
               <span class='content-uploader'>
-<span class='username-prepend'>by</span> <a href='profile?id=".$item->snippet->channelId."' class='yt-uix-sessionlink yt-user-name ' data-sessionlink='ei=CPyeyIWLwbQCFZkQIQodPx8kow%3D%3D' dir='ltr'>".$item->snippet->channelTitle."</a>
+<span class='username-prepend'>by</span> <a href='profile?id=".$videoList->authorId."' class='yt-uix-sessionlink yt-user-name ' data-sessionlink='ei=CPyeyIWLwbQCFZkQIQodPx8kow%3D%3D' dir='ltr'>".$videoList->author."</a>
   </span>
 
           </div>
         </div>
       </div>";
-		}
+$count++;
 }
 }
+}
+$count = 0; //reset count, invidious does not seem to have limit filter
 	?>
   </div>
 
@@ -193,35 +200,37 @@ if(isset($item->snippet->title)) {
     
         <h2 class="branded-page-module-title">
       <a class="spf-link" href="/web/20121230023058/http://www.youtube.com/channel/HC4qRk91tndwg?feature=g-logo" title="Most Popular" data-sessionlink="ei=CPyeyIWLwbQCFZkQIQodPx8kow%3D%3D&amp;ved=CFAQzh4%3D">
-        Entertainment
+        Gaming
       </a>
     </h2>
 
       <?php
-		$videoList = json_decode(file_get_contents('https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&videoCategoryId=24&maxResults=4&chart=mostPopular&regionCode=US&key='.$api_key));
+$videoList = json_decode(file_get_contents('https://invidious.zee.li/api/v1/trending?type=gaming&region=US'));
 		  
-foreach($videoList->items as $item){
+foreach($videoList as $videoList){
 //Embed video
-if(isset($item->id)){
-if(isset($item->snippet->title)) {
+if(isset($videoList->videoId)){
+if($count < 3) {
 			echo "<div class='lohp-vertical-shelf-item context-data-item'>
         <div class='lohp-media-object'>
-          <a href='watch?v=".$item->id."' class='ux-thumb-wrap yt-uix-sessionlink yt-uix-contextlink contains-addto ' data-sessionlink='ei=CPyeyIWLwbQCFZkQIQodPx8kow%3D%3D&amp;feature=g-logo&amp;ved=CFEQzx4oAA%3D%3D'><span class='video-thumb ux-thumb yt-thumb-default-64 '><span class='yt-thumb-clip'><span class='yt-thumb-clip-inner'><img alt='Thumbnail' src='".$item->snippet->thumbnails->default->url."' onerror=\"this.src='./img/default.png'\" width='64' data-group-key='thumb-group-1'><span class='vertical-align'></span></span></span></span></a>
+          <a href='watch?v=".$videoList->videoId."' class='ux-thumb-wrap yt-uix-sessionlink yt-uix-contextlink contains-addto ' data-sessionlink='ei=CPyeyIWLwbQCFZkQIQodPx8kow%3D%3D&amp;feature=g-logo&amp;ved=CFEQzx4oAA%3D%3D'><span class='video-thumb ux-thumb yt-thumb-default-64 '><span class='yt-thumb-clip'><span class='yt-thumb-clip-inner'><img alt='Thumbnail' src='https://i.ytimg.com/vi/".$videoList->videoId."/default.jpg' onerror=\"this.src='./img/default.png'\" width='64' data-group-key='thumb-group-1'><span class='vertical-align'></span></span></span></span></a>
         </div>
         <div class='lohp-vertical-shelf-item-content lohp-media-object-content'>
-            <a class='lohp-video-link max-line-3 yt-uix-sessionlink' data-sessionlink='ei=CPyeyIWLwbQCFZkQIQodPx8kow%3D%3D&amp;feature=g-logo&amp;ved=CFEQzx4oAA%3D%3D' href='watch?v=".$item->id."' title='".$item->snippet->title."'>".$item->snippet->title."</a>
+            <a class='lohp-video-link max-line-3 yt-uix-sessionlink' data-sessionlink='ei=CPyeyIWLwbQCFZkQIQodPx8kow%3D%3D&amp;feature=g-logo&amp;ved=CFEQzx4oAA%3D%3D' href='watch?v=".$videoList->videoId."' title='".$videoList->title."'>".$videoList->title."</a>
 
           <div class='lohp-video-metadata attached'>
               <span class='content-uploader'>
-<span class='username-prepend'>by</span> <a href='profile?id=".$item->snippet->channelId."' class='yt-uix-sessionlink yt-user-name ' data-sessionlink='ei=CPyeyIWLwbQCFZkQIQodPx8kow%3D%3D' dir='ltr'>".$item->snippet->channelTitle."</a>
+<span class='username-prepend'>by</span> <a href='profile?id=".$videoList->authorId."' class='yt-uix-sessionlink yt-user-name ' data-sessionlink='ei=CPyeyIWLwbQCFZkQIQodPx8kow%3D%3D' dir='ltr'>".$videoList->author."</a>
   </span>
 
           </div>
         </div>
       </div>";
-		}
+$count++;
 }
 }
+}
+$count = 0; //reset count, invidious does not seem to have limit filter
 	?>
       </div>
   </div>
