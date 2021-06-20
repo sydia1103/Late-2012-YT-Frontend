@@ -34,7 +34,7 @@ $count = 0;
     
     <div class="lohp-large-shelf-container">
         <?php
-$videoList = json_decode(file_get_contents('https://invidious.zee.li/api/v1/trending?type=movies&region=US'));
+$videoList = json_decode(file_get_contents('https://vid.puffyan.us/api/v1/trending?type=Movies&region=US'));
 		  
 foreach($videoList as $videoList){
 //Embed video
@@ -71,7 +71,7 @@ $count = 0; //reset count, invidious does not seem to have limit filter
     </div>
     <div class="lohp-medium-shelves-container">
 <?php
-$videoList = json_decode(file_get_contents('https://invidious.zee.li/api/v1/trending?type=news&region=US'));
+$videoList = json_decode(file_get_contents('https://vid.puffyan.us/api/v1/trending?type=Movies&region=US'));
 		  
 foreach($videoList as $videoList){
 //Embed video
@@ -119,7 +119,7 @@ $count = 0; //reset count, invidious does not seem to have limit filter
 
           <div>
           <?php
-$videoList = json_decode(file_get_contents('https://invidious.fdn.fr/api/v1/popular'));
+$videoList = json_decode(file_get_contents('https://vid.puffyan.us/api/v1/popular'));
 		  
 foreach($videoList as $videoList){
 //Embed video
@@ -167,7 +167,7 @@ $count = 0; //reset count, invidious does not seem to have limit filter
       </a>
     </h2>
 <?php
-$videoList = json_decode(file_get_contents('https://invidious.zee.li/api/v1/trending?type=music&region=US'));
+$videoList = json_decode(file_get_contents('https://vid.puffyan.us/api/v1/trending?type=Music&region=US'));
 		  
 foreach($videoList as $videoList){
 //Embed video
@@ -205,7 +205,7 @@ $count = 0; //reset count, invidious does not seem to have limit filter
     </h2>
 
       <?php
-$videoList = json_decode(file_get_contents('https://invidious.zee.li/api/v1/trending?type=gaming&region=US'));
+$videoList = json_decode(file_get_contents('https://vid.puffyan.us/api/v1/trending?type=Gaming&region=US'));
 		  
 foreach($videoList as $videoList){
 //Embed video

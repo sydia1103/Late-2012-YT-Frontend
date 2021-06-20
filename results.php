@@ -130,10 +130,10 @@ include("./static/guide.php");
 <?php
 if(isset($_GET["page"])) {
 $page = $_GET["page"];
-$videoList = json_decode(file_get_contents('https://invidious.zee.li/api/v1/search?q='.urlencode($_GET["search_query"]).'&page='.$_GET["page"]));
+$videoList = json_decode(file_get_contents('https://vid.puffyan.us/api/v1/search?q='.urlencode($_GET["search_query"]).'&page='.$_GET["page"]));
 } else {
 $page = 1;
-$videoList = json_decode(file_get_contents('https://invidious.zee.li/api/v1/search?q='.urlencode($_GET["search_query"]).'&page=1'));
+$videoList = json_decode(file_get_contents('https://vid.puffyan.us/api/v1/search?q='.urlencode($_GET["search_query"]).'&page=1'));
 } 
 foreach($videoList as $videoList){
 echo "<li class='yt-lockup2 yt-lockup2-video yt-uix-tile context-data-item clearfix '>

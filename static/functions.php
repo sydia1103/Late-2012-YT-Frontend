@@ -42,13 +42,13 @@ function ISO8601ToSeconds($ISO8601){
 function getEndScreenRecommendations() {
 global $id;
 $count = 0;
-$videoList = json_decode(file_get_contents("https://invidious.zee.li/api/v1/videos/".$id)); 
+$videoList = json_decode(file_get_contents("https://vid.puffyan.us/api/v1/videos/".$id)); 
 		  
 foreach($videoList->recommendedVideos as $recom){
 		echo "title=".urlencode($recom->title)."\u0026length_seconds=".$recom->lengthSeconds."\u0026author=".$recom->author."\u0026id=".$recom->videoId."\u0026view_count=".number_format($recom->viewCount).",";
 		$nextVideoId = $recom->videoId;
 	}
-$videoList = json_decode(file_get_contents("https://invidious.zee.li/api/v1/videos/".$nextVideoId)); 
+$videoList = json_decode(file_get_contents("https://vid.puffyan.us/api/v1/videos/".$nextVideoId)); 
 		  
 foreach($videoList->recommendedVideos as $recom){
 		echo "title=".urlencode($recom->title)."\u0026length_seconds=".$recom->lengthSeconds."\u0026author=".$recom->author."\u0026id=".$recom->videoId."\u0026view_count=".number_format($recom->viewCount).",";

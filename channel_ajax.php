@@ -7,7 +7,7 @@ if(!isset($_GET["sort"])) {
 } else {
 	$sort_by = $_GET["sort"];
 }
-$videoList = json_decode(file_get_contents("https://invidious.zapashcanon.fr/api/v1/channels/".$id."/videos?sort_by=".$sort_by."&page=".$_GET["page"]));   
+$videoList = json_decode(file_get_contents("https://vid.puffyan.us/api/v1/channels/".$id."/videos?sort_by=".$sort_by."&page=".$_GET["page"]));   
 foreach($videoList as $item){
 echo "<li class='channels-content-item'>
    <span class='context-data-item' data-context-item-user='".$item->author."' data-context-item-type='video' data-context-item-id='".$item->videoId."' data-context-item-time='12:03' data-context-item-title='".$item->title."' data-context-item-views='339,590 views'>

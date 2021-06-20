@@ -1,0 +1,9 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
+RewriteRule ^(feed/trending/(.*?))/?$ feed_trending.php [L]
+RewriteRule ^(feed/trending)/?$ feed_trending.php [L]
+RewriteRule feed/trending feed_trending.php [L]
+RewriteRule ^(user/z3video(.*?))/?$ z3video.php?user=%1 [L]
+RewriteRule ^(user/(.*?))/?$ profile.php?user=%1 [L]
+RewriteRule ^(yts/(.*?))/?$ fix/yts_fix.php [L]

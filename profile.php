@@ -15,7 +15,7 @@ if(isset($_GET["query"])) {
 } else {
 	$query = "";
 }
-$videoList = json_decode(file_get_contents("https://invidious.zapashcanon.fr/api/v1/channels/".$id)); 
+$videoList = json_decode(file_get_contents("https://vid.puffyan.us/api/v1/channels/".$id)); 
 		  
 $author = $videoList->author;
 $profpic = $videoList->authorThumbnails[2]->url;
@@ -234,7 +234,7 @@ var getUrlParameter = function getUrlParameter(sParam) {
         
   <ul id="channels-browse-content-grid" class="channels-browse-content-grid context-data-container ">
   <?php
-$videoList = json_decode(file_get_contents("https://invidious.zapashcanon.fr/api/v1/channels/".$id.'/videos?sort_by='.$sort_by)); 
+$videoList = json_decode(file_get_contents("https://vid.puffyan.us/api/v1/channels/".$id.'/videos?sort_by='.$sort_by)); 
 
 foreach($videoList as $item){
 echo "<li class='channels-content-item'>
@@ -323,7 +323,7 @@ by <span class="yt-user-name " dir="ltr"><?php echo $author; ?></span>
                 <div class="channel-module other-channels yt-uix-c3-module-container other-channels-compact">
     <div class="module-view other-channels-view">
 	<?php
-$videoList = json_decode(file_get_contents("https://invidious.zapashcanon.fr/api/v1/channels/".$id)); 
+$videoList = json_decode(file_get_contents("https://vid.puffyan.us/api/v1/channels/".$id)); 
 $count = 0;
 foreach($videoList->relatedChannels as $item){
 	$count++;
