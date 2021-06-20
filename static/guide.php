@@ -124,8 +124,16 @@ Browse channels
         <span>modified by Jasonap#8863</span>
       </span>
     </a>
-  </li>
-            </li>
+  </li><li class="guide-channel">
+    <a class="guide-item " href="changelog" title="Spotlight" data-channel-id="UCBR8-60-B28hp2BmDPdntcQ">
+      
+      <span class="display-name">
+        <span>changelog</span>
+      </span>
+    </a>
+   </li>        
+
+              </li>
         </ul>
             <div class="guide-section guide-header signup-promo guided-help-box">
     <p>
