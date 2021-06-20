@@ -14,6 +14,6 @@ Make sure you copy html5_player_template_2012L in the root. \
 Once you've gotten the key, go to the /static/ folder and edit the config file to use your API key. \
 If you did it right, it should work. Enjoy.
 
-#Fixed Version
+# Fixed Version
 This is an fixed version fixed by me. There should be no more 500 Internal Server Errors.
 Of course, this is made by Crazy Frog, the original version was made by him.
