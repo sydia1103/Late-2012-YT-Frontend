@@ -16,4 +16,4 @@ If you did it right, it should work. Enjoy.
 
 # Fixed Version
 This is an fixed version fixed by me. There should be no more 500 Internal Server Errors.
-Of course, this is made by Crazy Frog, the original version was made by him.
+This is made by Crazy Frog, the original version was made by him.
