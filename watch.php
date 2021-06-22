@@ -756,6 +756,9 @@ Loading more suggestions...
 
   </div>
     <script>
+	    <?php
+include("./static/footer.php");
+	    ?>
 if (window.yt.timing) {yt.timing.tick("js_head");}    </script>
   
     <script id="js-1886910086" src="./asset/watch.js" data-loaded="true"></script>
