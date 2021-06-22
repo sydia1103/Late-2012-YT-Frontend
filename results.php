@@ -231,3 +231,5 @@ echo "<li class='yt-lockup2 yt-lockup2-video yt-uix-tile context-data-item clear
 <a href="results?search_query=<?php echo urlencode($_GET["search_query"]); ?>&page=<?php echo $page + 1; ?>" class="yt-uix-button  yt-uix-pager-button yt-uix-sessionlink yt-uix-button-default" data-sessionlink="ei=CLHplbT-ibUCFcdRRAod3XcHTw%3D%3D" data-page="2"><span class="yt-uix-button-content">Next »</span></a>
     </div>
 </div>
+<?php
+include("./static/footer.php");
