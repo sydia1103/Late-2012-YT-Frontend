@@ -366,3 +366,5 @@ foreach($videoList->relatedChannels as $item){
 
 
       </div>
+<?php
+include("./static/footer.php");

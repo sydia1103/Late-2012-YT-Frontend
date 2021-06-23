@@ -250,3 +250,5 @@ $count = 0; //reset count, invidious does not seem to have limit filter
     <hr class="branded-page-v2-col-container-bottom-border">
   </div>
 </div>
+<?php
+include("./static/footer.php");
