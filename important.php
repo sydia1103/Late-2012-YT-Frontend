@@ -41,3 +41,10 @@
       </li>
    </ul>
 </div>
+</div>
+</div>
+</div>
+<?php
+include("./static/footer.php");
+	    
+         
