@@ -26,6 +26,20 @@
    <h3>  Changelog </h3>
    <ul class="html5-compatibility-table">
       <li>
+        <div class="yt-alert yt-alert-naked yt-alert-success  " id="c-video">
+            <div class="yt-alert-content" role="alert">    
+               Version 2.1
+            </div>
+         </div>
+      </li>
+      <li>
+         <div class="yt-alert yt-alert-naked yt-alert-success  " id="c-video">
+            <div class="yt-alert-content" role="alert">    
+               Temporarily removed Dislike count because of YouTube removing Dislikes. 
+            </div>
+         </div>
+      </li>
+      </li>
          <div class="yt-alert yt-alert-naked yt-alert-success  " id="c-video">
             <div class="yt-alert-content" role="alert">    
                Version 2.0.1
@@ -75,4 +89,3 @@
 </div>
 <?php
 include("./static/footer.php");
-	    

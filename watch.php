@@ -16,19 +16,29 @@ $publishedAt = $vidInfo->publishedText;
 $subcount = $vidInfo->subCountText;
 $count = 0;
 foreach($vidInfo->formatStreams as $formatStreams) {
-	if($count < 1) {
-		$video = urlencode($formatStreams->url);
-	}
-	$count = 0;
+  if($count < 1) {
+    $video = urlencode($formatStreams->url);
+  }
+  $count = 0;
 }
 foreach($vidInfo->authorThumbnails as $authorThumbnails) {
-	if($count < 1) {
-		$authorProfPic = $authorThumbnails->url;
-	}
-	$count = 0;
+  if($count < 1) {
+    $authorProfPic = $authorThumbnails->url;
+  }
+  $count = 0;
 }
 $vidcount = 0;
 $totalCount = $likeCount + $dislikeCount;
+?>
+<?php
+$ch = curl_init("https://returnyoutubedislikeapi.com/votes?videoId=" . $Id);
+curl_setopt_array($ch, [
+    CURLOPT_HEADER => 0,
+    CURLOPT_RETURNTRANSFER => 1
+]);
+$rydResponse = curl_exec($ch);
+curl_close($ch);
+$dislikesData = json_decode($rydResponse);
 ?>
 
 <html lang="en"><head>
@@ -154,7 +164,7 @@ if (window.yt.timing) {yt.timing.tick("bf");}    </script>
   </div>
   <span class="video-extras-likes-dislikes">
       <img class="icon-watch-stats-like" src="http://web-old.archive.org/web/20121229102009im_/http://s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif" alt="Like"> <?php echo number_format($likeCount); ?>
- &nbsp;&nbsp;&nbsp;   <img class="icon-watch-stats-dislike" src="http://web-old.archive.org/web/20121229102009im_/http://s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif" alt="Dislike"> <?php echo number_format($dislikeCount); ?>
+ &nbsp;&nbsp;&nbsp;   <img class="icon-watch-stats-dislike" src="http://web-old.archive.org/web/20121229102009im_/http://s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif" alt="Dislike"> DISLIKE
 
   </span>
 
@@ -280,8 +290,8 @@ if (window.yt.timing) {yt.timing.tick("bf");}    </script>
           </p>
           <div id="watch-description-text">
             <p id="eow-description" >
-			<?php echo nl2br($description); ?>
-			</p>
+      <?php echo nl2br($description); ?>
+      </p>
           </div>
             <div id="watch-description-extras">
     <ul class="watch-extras-section">
@@ -435,14 +445,14 @@ Loading...
 
   <?php
   ob_start();
-		  $commentList = json_decode(file_get_contents('https://vid.puffyan.us/api/v1/comments/'.$id));
+      $commentList = json_decode(file_get_contents('https://vid.puffyan.us/api/v1/comments/'.$id));
 
-		  foreach($commentList->comments as $item) {
-		if(!isset($item->authorThumbnails[0]->url)) {
-			$profpic = "http://fulptube.rocks/dynamic/pfp/default.png";
-		} else {
-			$profpic = $item->authorThumbnails[0]->url;
-		}
+      foreach($commentList->comments as $item) {
+    if(!isset($item->authorThumbnails[0]->url)) {
+      $profpic = "http://fulptube.rocks/dynamic/pfp/default.png";
+    } else {
+      $profpic = $item->authorThumbnails[0]->url;
+    }
         echo "<li class='clearfix comment'
    data-author-id='HTKJiRMV0hk9PY0Wv3aepA'
    data-id='h9CSjLt9ZEIT-zAOha0TluW8PrpNyT9KPC0w84grC1w'
@@ -546,8 +556,8 @@ Loading...
 </li>";
 }
 if(file_get_contents('https://vid.puffyan.us/api/v1/comments/'.$id) == null) {
-	ob_end_clean();
-	echo "Comments are unavailable.";
+  ob_end_clean();
+  echo "Comments are unavailable.";
 }?>
 
   </ul>
@@ -596,7 +606,7 @@ if(file_get_contents('https://vid.puffyan.us/api/v1/comments/'.$id) == null) {
 <?php
 $count = 0;
 $videoList = json_decode(file_get_contents("https://vid.puffyan.us/api/v1/videos/".$id)); 
-		  
+      
 foreach($videoList->recommendedVideos as $recom){
 //Embed video
 if($count < 22) {
@@ -606,13 +616,13 @@ if($count < 22) {
  </span><img class='yt-uix-button-arrow' src='http://s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif' alt=''></button>
 </span><span dir='ltr' class='title' title='".$recom->title."'>".$recom->title."</span><span class='stat attribution'>by <span class='yt-user-name ' dir='ltr'>".$recom->author."</span></span><span class='stat alt badge'></span><span class='stat view-count'></span></a>
           </li>";
-		  $nextVideoId = $recom->videoId;
+      $nextVideoId = $recom->videoId;
 }
 }
 
 $count = 0;
 $videoList = json_decode(file_get_contents("https://vid.puffyan.us/api/v1/videos/".$nextVideoId)); 
-		  
+      
 foreach($videoList->recommendedVideos as $recom){
 //Embed video
 if($count < 22) {
@@ -756,9 +766,9 @@ Loading more suggestions...
 
   </div>
     <script>
-	    <?php
+      <?php
 include("./static/footer.php");
-	    ?>
+      ?>
 if (window.yt.timing) {yt.timing.tick("js_head");}    </script>
   
     <script id="js-1886910086" src="./asset/watch.js" data-loaded="true"></script>
