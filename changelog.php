@@ -28,6 +28,20 @@
       <li>
         <div class="yt-alert yt-alert-naked yt-alert-success  " id="c-video">
             <div class="yt-alert-content" role="alert">    
+               Version 2.2
+            </div>
+         </div>
+      </li>
+      <li>
+         <div class="yt-alert yt-alert-naked yt-alert-success  " id="c-video">
+            <div class="yt-alert-content" role="alert">    
+               Fixed dislike count thanks to the Return YouTube Dislike API. 
+            </div>
+         </div>
+      </li>
+     <li>
+        <div class="yt-alert yt-alert-naked yt-alert-success  " id="c-video">
+            <div class="yt-alert-content" role="alert">    
                Version 2.1
             </div>
          </div>

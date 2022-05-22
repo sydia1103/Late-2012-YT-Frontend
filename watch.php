@@ -3,14 +3,15 @@ include("./static/header.php");
 $id = $_GET["v"];
 
 // this is the main video information, such as the video url itself, video name, this is api-less.
-$vidInfo = json_decode(file_get_contents("https://vid.puffyan.us/api/v1/videos/".$id)); //decode the data
+$vidInfo = json_decode(file_get_contents("https://vid.puffyan.us/api/v1/videos/".$id));
+$dislikesData = json_decode(file_get_contents("https://returnyoutubedislikeapi.com/votes?videoId=".$id)); //decode the data
 include("./static/guide.php");
 $video_title = str_replace("\"", "'", $vidInfo->title);
 $video_author = $vidInfo->author;
 $channel_id = $vidInfo->authorId;
+$dislikeCount = $dislikesData->dislikes;
 $description = $vidInfo->descriptionHtml;
 $likeCount = $vidInfo->likeCount;
-$dislikeCount = $vidInfo->dislikeCount;
 $viewCount = $vidInfo->viewCount;
 $publishedAt = $vidInfo->publishedText;
 $subcount = $vidInfo->subCountText;
@@ -29,16 +30,8 @@ foreach($vidInfo->authorThumbnails as $authorThumbnails) {
 }
 $vidcount = 0;
 $totalCount = $likeCount + $dislikeCount;
-?>
-<?php
-$ch = curl_init("https://returnyoutubedislikeapi.com/votes?videoId=" . $Id);
-curl_setopt_array($ch, [
-    CURLOPT_HEADER => 0,
-    CURLOPT_RETURNTRANSFER => 1
-]);
-$rydResponse = curl_exec($ch);
-curl_close($ch);
-$dislikesData = json_decode($rydResponse);
+
+
 ?>
 
 <html lang="en"><head>
@@ -164,7 +157,7 @@ if (window.yt.timing) {yt.timing.tick("bf");}    </script>
   </div>
   <span class="video-extras-likes-dislikes">
       <img class="icon-watch-stats-like" src="http://web-old.archive.org/web/20121229102009im_/http://s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif" alt="Like"> <?php echo number_format($likeCount); ?>
- &nbsp;&nbsp;&nbsp;   <img class="icon-watch-stats-dislike" src="http://web-old.archive.org/web/20121229102009im_/http://s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif" alt="Dislike"> DISLIKE
+ &nbsp;&nbsp;&nbsp;   <img class="icon-watch-stats-dislike" src="http://web-old.archive.org/web/20121229102009im_/http://s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif" alt="Dislike"> <?php echo number_format($dislikeCount); ?>
 
   </span>
 
