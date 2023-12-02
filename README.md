@@ -3,7 +3,7 @@ A frontend for modern day YT. Runs on Invidious.
 Feel free to improve this however you'd like, you can use it for a 2012L YouTube revival given the right PHP knowledge.
 And its real 2012 frontend 
 
-![Screenshot](https://github.com//MediaDanyaVideoEditor590/Late-2012-YT-Frontend/blob/main/imageyt.png)
+![Screnshot](https://github.com//MediaDanyaVideoEditor590/Late-2012-YT-Frontend/blob/main/imageyt.png)
 
 # Features
 - Uses the original 2012L YouTube player.
