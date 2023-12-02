@@ -1,6 +1,9 @@
 # Late-2012-YT-Frontend
 A frontend for modern day YT. Runs on Invidious.
 Feel free to improve this however you'd like, you can use it for a 2012L YouTube revival given the right PHP knowledge.
+And its real 2012 frontend 
+
+![Screenshot](https://github.com//MediaDanyaVideoEditor590/Late-2012-YT-Frontend/blob/main/imageyt.png)
 
 # Features
 - Uses the original 2012L YouTube player.
@@ -17,3 +20,4 @@ If you did it right, it should work. Enjoy.
 # Fixed Version
 This is an fixed version fixed by me. There should be no more 500 Internal Server Errors.
 This is made by Crazy Frog, the original version was made by him.
+
